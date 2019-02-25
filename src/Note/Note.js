@@ -8,17 +8,17 @@ export default function Note(props) {
         <section className='note'>
             <h2 className='note-title'>
                 <Link to={`/note/${props.id}`}>
-                    {props.name} NOTE TITLE
+                    {props.name}
                 </Link>
             </h2>
-            <button>
+            <button className='delete-note'>
                 Delete Note
             </button>
             <div className='modify-date'>
                 Modified
                 {' '}
                 <span className='date'>
-                    
+                    {format(props.modified, 'DD MM YYYY')}
                 </span>
             </div>
         </section>
