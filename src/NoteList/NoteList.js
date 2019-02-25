@@ -22,12 +22,12 @@ export default function NoteList(props) {
                     </li>
                 )}
             </ul>
-            <div className='NoteListNav__button-wrapper'>
+            <div className='NoteListNav_button-wrapper'>
                 <LinkButton
                     tag={Link}
                     to='/add-folder'
                     type='button'
-                    className='NoteListNav__add-folder-button'
+                    className='NoteListNav_add-folder-button'
                 >
                     <br />
                     Folder

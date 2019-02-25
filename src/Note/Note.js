@@ -14,12 +14,14 @@ export default function Note(props) {
             <button className='delete-note'>
                 Delete Note
             </button>
-            <div className='modify-date'>
-                Modified
-                {' '}
-                <span className='date'>
-                    {format(props.modified, 'DD MM YYYY')}
-                </span>
+            <div className='note-date'>
+                <div className='modified-date'>
+                    Modified
+                    {' '}
+                    <span className='date'>
+                        {format(props.modified, 'DD MM YYYY')}
+                    </span>
+                </div>
             </div>
         </section>
     )

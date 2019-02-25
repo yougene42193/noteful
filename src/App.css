@@ -9,17 +9,15 @@
     min-height: 100vh;
   }
   
-  .App__nav {
-    background-color: #0b1b32;
-    color: #fff;
+  .App_nav {
+    color: black;
     grid-area: sidebar;
     height: 100vh;
     overflow: auto;
   }
   
-  .App__header {
-    background-color: #0b1f3a;
-    color: #bdbdbd;
+  .App_header {
+    color: black;
     font-family: var(--custom-font);
     grid-area: header;
     padding-left: 16px;
@@ -27,12 +25,11 @@
     text-shadow: 2px 1px 2px black;
   }
   
-  .App__header a {
-    color: #bdbdbd;
+  .App_header a {
+    color: black;
   }
   
-  .App__main {
-    background-color: #102541;
+  .App_main {
     grid-area: main;
     height: calc(100vh - 120px);
     overflow: auto;
