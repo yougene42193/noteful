@@ -40,6 +40,15 @@ class App extends Component {
       })
   }
 
+  handleAddFolder = folder => {
+    this.setState({
+      folders: [
+        ...this.state.folders,
+        folder
+      ]
+    })
+  }
+
   handleAddNote = note => {
     this.setState({
       notes: [
@@ -129,7 +138,7 @@ class App extends Component {
           </main>
         </div>
       </NoteContext.Provider>
-    );
+    )
   }
 }
 

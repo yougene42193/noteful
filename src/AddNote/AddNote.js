@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import NotefulForm from '../NotefulForm/NotefulForm'
 import NoteContext from '../NoteContext'
+import ValidationError from '../ValidationError/ValidationError'
+import PropTypes from 'prop-types';
 import './AddNote.css'
 
 export default class AddNote extends Component {
@@ -10,6 +12,26 @@ export default class AddNote extends Component {
         }
     }
     static contextType = NoteContext;
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '',
+            content: '',
+            folderId: '',
+            titleValid: false,
+            bodyValid: false,
+            folderValid: false,
+            formValid: false,
+            successMessage: '',
+            validationMessages: {
+                name: '',
+                content: '',
+                folderId: '',
+                form: '',
+            }
+        };
+    }
 
     handleSubmit = e => {
         e.preventDefault()
@@ -39,6 +61,51 @@ export default class AddNote extends Component {
             console.error({ error })
         })
     }
+
+    validateTitle(name) {
+        const validationMessages = this.state.validationMessages;
+        validationMessages.form = '';
+        let hasError = false;
+        if (name.length === 0) {
+            validationMessages.name = 'Title is required';
+            hasError = true
+        } else {
+            if (name.length < 3) {
+                validationMessages.name = 'Title must be at least 3 characters long.';
+                hasError = true
+            } else {
+                validationMessages.name = '';
+                hasError = false
+            }
+            this.setState(
+                {validationMessages, titleValid: !hasError},
+                this.formValid
+            );
+        }
+    }
+
+    validateContent(content) {
+        const validationMessages = this.state.validationMessages;
+        validationMessages.form = '';
+        let hasError = false;
+        if (content.length === 0) {
+            validationMessages.content = 'Body cannot be empty.'
+            hasError = true;
+        } else {
+            validationMessages.content = '';
+            hasError = false;
+        }
+        this.setState(
+            {validationMessages, bodyValid: !hasError},
+            this.formValid
+        )
+    }
+
+    formValid() {
+        const { titleValid, bodyValid, folderValid} = this.state;
+        this.setState({ formValid: titleValid && bodyValid && folderValid })
+    }
+
     render() {
         const { folders=[] } = this.context
         return (
@@ -50,12 +117,19 @@ export default class AddNote extends Component {
                             Name
                         </label>
                         <input type='text' id='note-name' name='note-name' />
+                        <ValidationError
+                            hasError={!this.titleValid}
+                            message={this.state.validationMessages.name} 
+                        />
                     </div>
                     <div className='field'>
                         <label for='note-content-input'>
                             Content
                         </label>
                         <textarea id='note-content-input' name='note-content' />
+                        <ValidationError
+                            hasError={!this.bodyValid}
+                            message={this.state.validationMessages.content} />
                     </div>
                     <div className='field'>
                         <label for='note-folder'>
@@ -69,6 +143,9 @@ export default class AddNote extends Component {
                                 </option>
                             )}
                         </select>
+                        <ValidationError
+                            hasError={!this.folderValid}
+                            message={this.state.validationMessages.folderId} />
                     </div>
                     <div className='buttons'>
                         <button type='submit'>
@@ -79,4 +156,9 @@ export default class AddNote extends Component {
             </section>
         )
     }
+}
+
+AddNote.propTypes = {
+    name: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
 }

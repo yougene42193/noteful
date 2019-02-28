@@ -35,7 +35,7 @@ export default class NoteList extends React.Component {
                         className='NoteListNav_add-folder-button'
                     >
                         <br />
-                        Folder
+                        Add Folder
                     </LinkButton>
                 </div>
             </div>
