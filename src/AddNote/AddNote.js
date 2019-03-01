@@ -33,6 +33,14 @@ export default class AddNote extends Component {
         };
     }
 
+    updateTitle(name) {
+        this.setState({name}, () => {this.validateTitle(name)});
+    }
+
+    updateContent(content) {
+        this.setState({content}, () => {this.validateContent(content)});
+    }
+
     handleSubmit = e => {
         e.preventDefault()
         const newNote = {
@@ -118,7 +126,7 @@ export default class AddNote extends Component {
                         </label>
                         <input type='text' id='note-name' name='note-name' />
                         <ValidationError
-                            hasError={!this.titleValid}
+                            hasError={!this.state.titleValid}
                             message={this.state.validationMessages.name} 
                         />
                     </div>
@@ -128,7 +136,7 @@ export default class AddNote extends Component {
                         </label>
                         <textarea id='note-content-input' name='note-content' />
                         <ValidationError
-                            hasError={!this.bodyValid}
+                            hasError={!this.state.bodyValid}
                             message={this.state.validationMessages.content} />
                     </div>
                     <div className='field'>
@@ -144,7 +152,7 @@ export default class AddNote extends Component {
                             )}
                         </select>
                         <ValidationError
-                            hasError={!this.folderValid}
+                            hasError={!this.state.folderValid}
                             message={this.state.validationMessages.folderId} />
                     </div>
                     <div className='buttons'>

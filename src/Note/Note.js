@@ -48,7 +48,9 @@ export default class Note extends React.Component {
                     type='button'
                     onClick={this.handleClickDelete}
                 >
-                    Delete Note
+                    <Link to={'/'}>
+                        Delete Note
+                    </Link>
                 </button>
                 <div className='note-date'>
                     <div className='modified-date'>

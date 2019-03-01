@@ -69,6 +69,10 @@ export default class AddFolder extends Component {
         });
       }
 
+      updateFolderName(name) {
+        this.setState({ name }, () => {this.validateFolderName(name)});
+      }
+
     render() {
         return (
             <section className='AddFolder'>
@@ -80,16 +84,16 @@ export default class AddFolder extends Component {
                         </label>
                         <input type='text' id='folder-name' name='folder-name' />
                         <ValidationError
-                            hasError={!this.nameValid}
-                            message={this.validationMessage} />
+                            hasError={!this.state.nameValid}
+                            message={this.state.validationMessage} />
                     </div>
                     <div className='add-folder-button'>
                         <button type='submit'>
                             Add Folder
                         </button>
                         <ValidationError
-                            hasError={!this.formValid}
-                            message={this.formValidationMessage} 
+                            hasError={!this.state.formValid}
+                            message={this.state.formValidationMessage} 
                         />
                     </div>
                 </NotefulForm>
