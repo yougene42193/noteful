@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
-import Header from './Header/Header'
+import React, { Component } from 'react'
+import { Route, Link } from 'react-router-dom'
 import NoteList from './NoteList/NoteList'
-import NoteListMain from './NoteListMain/NoteListMain'
 import NotePage from './NotePage/NotePage'
+import NoteListMain from './NoteListMain/NoteListMain'
 import NotePageMain from './NotePageMain/NotePageMain'
 import AddFolder from './AddFolder/AddFolder'
 import AddNote from './AddNote/AddNote'
 import NoteContext from './NoteContext'
+import config from './config'
 import './App.css'
 
 class App extends Component {
@@ -18,8 +18,8 @@ class App extends Component {
 
   componentDidMount() {
     Promise.all([
-      fetch(`http://localhost:8000/api/notes`),
-      fetch(`http://localhost:8000/api/folders`)
+      fetch(`${config.API_ENDPOINT}/api/notes`),
+      fetch(`${config.API_ENDPOINT}/api/folders`)
     ])
       .then(([notesRes, foldersRes]) => {
         if (!notesRes.ok)
@@ -67,7 +67,7 @@ class App extends Component {
   renderNavRoutes() {
     return (
       <>
-        {['/', '/folder/:folderId'].map(path =>
+        {['/', '/api/folder/:folderId'].map(path =>
           <Route
             exact
             key={path}
@@ -76,22 +76,22 @@ class App extends Component {
           />
         )}
         <Route
-          path='/note/:noteId'
+          path='/api/note/:noteId'
           component={NotePage}
         />
         <Route
-          path='/add-folder'
+          path='/api/add-folder'
           component={NotePage}
         />
         <Route
-          path='/add-note'
+          path='/api/add-note'
           component={NotePage}
         />
       </>
     )
   }
 
-  renderListRoutes() {
+  renderMainRoutes() {
     return (
       <>
         {['/', '/folder/:folderId'].map(path =>
@@ -124,17 +124,22 @@ class App extends Component {
       folders: this.state.folders,
       addFolder: this.handleAddFolder,
       addNote: this.handleAddNote,
-      deleteNotes: this.handleDeleteNote,
+      deleteNote: this.handleDeleteNote,
     }
     return (
       <NoteContext.Provider value={value}>
-        <div className="App">
+        <div className='App'>
           <nav className='App_nav'>
             {this.renderNavRoutes()}
           </nav>
-          <Header />
+          <header className='App_header'>
+            <h1>
+              <Link to='/'>Noteful</Link>
+              {' '}
+            </h1>
+          </header>
           <main className='App_main'>
-            {this.renderListRoutes()}
+            {this.renderMainRoutes()}
           </main>
         </div>
       </NoteContext.Provider>
@@ -142,4 +147,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App
