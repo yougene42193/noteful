@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { format } from 'date-fns'
 import NoteContext from '../NoteContext'
 import config from '../config'
 import './Note.css'
 
-export default class Note extends React.Component {
+export default class Note extends Component {
   static defaultProps ={
     onDeleteNote: () => {},
   }
@@ -14,7 +15,7 @@ export default class Note extends React.Component {
     e.preventDefault()
     const noteId = this.props.id
 
-    fetch(`${config.API_ENDPOINT}/api/notes/${noteId}`, {
+    fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json'
@@ -23,12 +24,11 @@ export default class Note extends React.Component {
       .then(res => {
         if (!res.ok)
           return res.json().then(e => Promise.reject(e))
-        return res.json()
+          window.location.reload();
       })
       .then(() => {
         this.context.deleteNote(noteId)
         this.props.onDeleteNote(noteId)
-        this.props.history.push(`/`)
       })
       .catch(error => {
         console.error({ error })
@@ -40,7 +40,7 @@ export default class Note extends React.Component {
     return (
       <div className='Note'>
         <h2 className='Note_title'>
-          <Link to={`/api/notes/${id}`}>
+          <Link to={`/note/${id}`}>
             {name}
           </Link>
         </h2>
@@ -57,7 +57,7 @@ export default class Note extends React.Component {
             Modified
             {' '}
             <span className='Date'>
-              {(modified, 'Do MMM YYYY')}
+              {format(modified, 'Do MMM YYYY')}
             </span>
           </div>
         </div>
