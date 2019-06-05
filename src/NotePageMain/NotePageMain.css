@@ -8,4 +8,7 @@
   .NotePageMain_content {
     color: #3a3939;
     max-width: 380px;
+    font-size: 20px;
+    border: 2px solid gray;
+    text-align: center;
   }

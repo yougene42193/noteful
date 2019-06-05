@@ -17,7 +17,7 @@ export default class NoteListNav extends React.Component {
             <li key={folder.id}>
               <NavLink
                 className='NoteListNav_folder-link'
-                to={`/api/folders/${folder.id}`}
+                to={`/folder/${folder.id}`}
               >
                 <span className='NoteListNav_num-notes'>
                   {countNotesForFolder(notes, folder.id)}
@@ -35,7 +35,7 @@ export default class NoteListNav extends React.Component {
             className='NoteListNav_add-folder-button'
           >
             <br />
-            Folder
+            New Folder
           </CircleButton>
         </div>
       </div>

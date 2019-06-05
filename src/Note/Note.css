@@ -1,4 +1,4 @@
-.note {
+.Note {
     border: 2px solid gray;
     --note-height: 88px;
     color: #cacaca;
@@ -9,26 +9,30 @@
     position: relative;
   }
   
-  .delete-note:hover {
+  .Note_delete {
+    border: 1px solid black;
+  }
+
+  .Note_delete:hover {
     background-color: #bd0909;
     color: white;
     cursor: pointer;
     font-weight: bold;
   }
   
-  .note-title {
+  .Note_title {
     font-family: var(--custom-font);
     font-size: 20px;
     margin: 0;
     max-width: 80%;
     min-height: 24px;
   }
-  .note-title a {
+  .Note_title a {
     color: black;
     display: block;
     text-decoration: none;
   }
-  .note-title a:hover {
+  .Note_title a:hover {
     color: #FFB72F;
   }
   

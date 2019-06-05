@@ -41,6 +41,6 @@
     text-decoration: none;
   }
   .Noteful-form button[type="submit"]:hover {
-    background-color: #29862e;
+    background-color: darkblue;
     color: white;
   }

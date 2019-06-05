@@ -26,14 +26,16 @@
   max-width: 180px;
   padding: 8px 16px;
   text-decoration: none;
+  border-bottom: 1px solid black;
 }
 .NoteListNav_folder-link:hover {
   color: #FFB72F;
+  background: rgb(8, 52, 146);
   cursor: pointer;
 }
 .NoteListNav_folder-link.active {
-  background-color: black;
-  color: white;
+  background-color: rgb(8, 52, 146);
+  color: #FFB72F;
 }
 
 .NoteListNav_num-notes {

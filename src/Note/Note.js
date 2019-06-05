@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { format } from 'date-fns'
+//import { format } from 'date-fns'
 import NotesContext from '../NotesContext'
 import config from '../config'
 import './Note.css'
 
-export default class Note extends Component {
+export default class Note extends React.Component {
   static defaultProps ={
     onDeleteNote: () => {},
   }
@@ -24,7 +24,6 @@ export default class Note extends Component {
       .then(res => {
         if (!res.ok)
           return res.json().then(e => Promise.reject(e))
-          window.location.reload();
       })
       .then(() => {
         this.context.deleteNote(noteId)
@@ -36,32 +35,31 @@ export default class Note extends Component {
   }
 
   render() {
-    const { name, id, modified, content } = this.props
+    const { name, id } = this.props
     return (
       <div className='Note'>
         <h2 className='Note_title'>
-          <Link to={`/notes/${id}`}>
+          <Link to={`/note/${id}`}>
             {name}
           </Link>
         </h2>
-		<p>{content}</p>
         <button
           className='Note_delete'
           type='button'
           onClick={this.handleClickDelete}
         >
           {' '}
-          remove
+          Delete
         </button>
-        <div className='Note_dates'>
+        {/*<div className='Note_dates'>
           <div className='Note_dates-modified'>
             Modified
             {' '}
             <span className='Date'>
-              {format(modified, 'DD/MM/YYYY')}
+              {format(modified, 'Do MMM YYYY')}
             </span>
           </div>
-        </div>
+        </div>*/}
       </div>
     )
   }
