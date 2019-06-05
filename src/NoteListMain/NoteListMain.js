@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Note from '../Note/Note'
-import LinkButton from '../LinkButton/LinkButton'
-import NoteContext from '../NoteContext'
-import { getNotesForFolder } from '../note-helpers'
+import CircleButton from '../CircleButton/CircleButton'
+import NotesContext from '../NotesContext'
+import { getNotesForFolder } from '../notes-helpers'
 import './NoteListMain.css'
 
 export default class NoteListMain extends React.Component {
@@ -12,7 +13,7 @@ export default class NoteListMain extends React.Component {
       params: {}
     }
   }
-  static contextType = NoteContext
+  static contextType = NotesContext
 
   render() {
     const { folderId } = this.props.match.params
@@ -27,21 +28,21 @@ export default class NoteListMain extends React.Component {
                 id={note.id}
                 name={note.note_name}
                 modified={note.modified}
-                content={note.content}
               />
             </li>
           )}
         </ul>
         <div className='NoteListMain_button-container'>
-          <LinkButton
+          <CircleButton
             tag={Link}
             to='/add-note'
             type='button'
             className='NoteListMain_add-note-button'
           >
+            <FontAwesomeIcon icon='plus' />
             <br />
             Note
-          </LinkButton>
+          </CircleButton>
         </div>
       </section>
     )

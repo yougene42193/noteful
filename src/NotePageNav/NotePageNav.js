@@ -1,8 +1,8 @@
 import React from 'react'
-import LinkButton from '../LinkButton/LinkButton'
-import NoteContext from '../NoteContext'
-import { findNote, findFolder } from '../note-helpers'
-import './NotePage.css'
+import CircleButton from '../CircleButton/CircleButton'
+import NotesContext from '../NotesContext'
+import { findNote, findFolder } from '../notes-helpers'
+import './NotePageNav.css'
 
 export default class NotePageNav extends React.Component {
   static defaultProps = {
@@ -13,7 +13,7 @@ export default class NotePageNav extends React.Component {
       params: {}
     }
   }
-  static contextType = NoteContext;
+  static contextType = NotesContext;
 
   render() {
     const { notes, folders, } = this.context
@@ -22,7 +22,7 @@ export default class NotePageNav extends React.Component {
     const folder = findFolder(folders, note.folderId)
     return (
       <div className='NotePageNav'>
-        <LinkButton
+        <CircleButton
           tag='button'
           role='link'
           onClick={() => this.props.history.goBack()}
@@ -30,10 +30,10 @@ export default class NotePageNav extends React.Component {
         >
           <br />
           Back
-        </LinkButton>
+        </CircleButton>
         {folder && (
           <h3 className='NotePageNav_folder-name'>
-            {folder.folder_name}
+            {folder.name}
           </h3>
         )}
       </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import Note from '../Note/Note'
-import NoteContext from '../NoteContext'
-import { findNote } from '../note-helpers'
+import NotesContext from '../NotesContext'
+import { findNote } from '../notes-helpers'
 import './NotePageMain.css'
 
 export default class NotePageMain extends React.Component {
@@ -10,7 +10,7 @@ export default class NotePageMain extends React.Component {
       params: {}
     }
   }
-  static contextType = NoteContext
+  static contextType = NotesContext
 
   handleDeleteNote = noteId => {
     this.props.history.push(`/`)

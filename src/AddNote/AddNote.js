@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import NotefulForm from '../NotefulForm/NotefulForm'
-import NoteContext from '../NoteContext'
+import NotesContext from '../NotesContext'
 import config from '../config'
 import './AddNote.css'
 
@@ -10,7 +10,7 @@ export default class AddNote extends Component {
       push: () => { }
     },
   }
-  static contextType = NoteContext;
+  static contextType = NotesContext;
 
   handleSubmit = e => {
     e.preventDefault()
@@ -20,7 +20,7 @@ export default class AddNote extends Component {
       folder_id: e.target['note-folder-id'].value,
       modified: new Date(),
     }
-    fetch(`${config.API_ENDPOINT}/api/notes`, {
+    fetch(`${config.API_ENDPOINT}/notes`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'

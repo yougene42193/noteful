@@ -1,12 +1,12 @@
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom'
-import LinkButton from '../LinkButton/LinkButton'
-import NoteContext from '../NoteContext'
-import { countNotesForFolder } from '../note-helpers'
-import './NoteList.css'
+import CircleButton from '../CircleButton/CircleButton'
+import NotesContext from '../NotesContext'
+import { countNotesForFolder } from '../notes-helpers'
+import './NoteListNav.css'
 
-export default class NoteList extends React.Component {
-  static contextType = NoteContext;
+export default class NoteListNav extends React.Component {
+  static contextType = NotesContext;
 
   render() {
     const { folders=[], notes=[] } = this.context
@@ -28,7 +28,7 @@ export default class NoteList extends React.Component {
           )}
         </ul>
         <div className='NoteListNav_button-wrapper'>
-          <LinkButton
+          <CircleButton
             tag={Link}
             to='/add-folder'
             type='button'
@@ -36,7 +36,7 @@ export default class NoteList extends React.Component {
           >
             <br />
             Folder
-          </LinkButton>
+          </CircleButton>
         </div>
       </div>
     )

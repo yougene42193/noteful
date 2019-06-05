@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import NotefulForm from '../NotefulForm/NotefulForm'
-import NoteContext from '../NoteContext'
+import NotesContext from '../NotesContext'
 import config from '../config'
 import './AddFolder.css'
 
@@ -11,12 +11,12 @@ export default class AddFolder extends Component {
       folder: ''
     }
   }
-  static contextType = NoteContext;
+  static contextType = NotesContext;
 
   handleSubmit = e => {
     e.preventDefault()
     
-    fetch(`${config.API_ENDPOINT}/api/folders`, {
+    fetch(`${config.API_ENDPOINT}/folders`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'

@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { Route, Link } from 'react-router-dom'
-import NoteList from './NoteList/NoteList'
-import NotePage from './NotePage/NotePage'
-import NoteListMain from './NoteListMain/NoteListMain'
-import NotePageMain from './NotePageMain/NotePageMain'
-import AddFolder from './AddFolder/AddFolder'
-import AddNote from './AddNote/AddNote'
-import NoteContext from './NoteContext'
-import config from './config'
+import NoteListNav from '../NoteListNav/NoteListNav'
+import NotePageNav from '../NotePageNav/NotePageNav'
+import NoteListMain from '../NoteListMain/NoteListMain'
+import NotePageMain from '../NotePageMain/NotePageMain'
+import AddFolder from '../AddFolder/AddFolder'
+import AddNote from '../AddNote/AddNote'
+import NotesContext from '../NotesContext'
+import config from '../config'
 import './App.css'
 
 class App extends Component {
@@ -18,8 +18,18 @@ class App extends Component {
 
   componentDidMount() {
     Promise.all([
-      fetch(`${config.API_ENDPOINT}/notes`),
-      fetch(`${config.API_ENDPOINT}/folders`)
+      fetch(`${config.API_ENDPOINT}/notes`, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+        }
+      }), 
+      fetch(`${config.API_ENDPOINT}/folders`, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+        }
+      })
     ])
       .then(([notesRes, foldersRes]) => {
         if (!notesRes.ok)
@@ -65,6 +75,7 @@ class App extends Component {
   }
 
   renderNavRoutes() {
+    const { notes, folders } = this.state
     return (
       <>
         {['/', '/folder/:folderId'].map(path =>
@@ -72,26 +83,33 @@ class App extends Component {
             exact
             key={path}
             path={path}
-            component={NoteList}
+            render={routeProps =>
+              <NoteListNav 
+                folders={folders}
+                notes={notes}
+                {...routeProps}
+              />
+            }
           />
         )}
         <Route
           path='/note/:noteId'
-          component={NotePage}
+          component={NotePageNav}
         />
         <Route
           path='/add-folder'
-          component={NotePage}
+          component={NotePageNav}
         />
         <Route
           path='/add-note'
-          component={NotePage}
+          component={NotePageNav}
         />
       </>
     )
   }
 
   renderMainRoutes() {
+    const { notes, folders } = this.state
     return (
       <>
         {['/', '/folder/:folderId'].map(path =>
@@ -127,7 +145,7 @@ class App extends Component {
       deleteNote: this.handleDeleteNote,
     }
     return (
-      <NoteContext.Provider value={value}>
+      <NotesContext.Provider value={value}>
         <div className='App'>
           <nav className='App_nav'>
             {this.renderNavRoutes()}
@@ -142,7 +160,7 @@ class App extends Component {
             {this.renderMainRoutes()}
           </main>
         </div>
-      </NoteContext.Provider>
+      </NotesContext.Provider>
     )
   }
 }

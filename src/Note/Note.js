@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { format } from 'date-fns'
-import NoteContext from '../NoteContext'
+import NotesContext from '../NotesContext'
 import config from '../config'
 import './Note.css'
 
@@ -9,7 +9,7 @@ export default class Note extends Component {
   static defaultProps ={
     onDeleteNote: () => {},
   }
-  static contextType = NoteContext;
+  static contextType = NotesContext;
 
   handleClickDelete = e => {
     e.preventDefault()
@@ -36,14 +36,15 @@ export default class Note extends Component {
   }
 
   render() {
-    const { name, id, modified } = this.props
+    const { name, id, modified, content } = this.props
     return (
       <div className='Note'>
         <h2 className='Note_title'>
-          <Link to={`/note/${id}`}>
+          <Link to={`/notes/${id}`}>
             {name}
           </Link>
         </h2>
+		<p>{content}</p>
         <button
           className='Note_delete'
           type='button'
@@ -57,7 +58,7 @@ export default class Note extends Component {
             Modified
             {' '}
             <span className='Date'>
-              {format(modified, 'Do MMM YYYY')}
+              {format(modified, 'DD/MM/YYYY')}
             </span>
           </div>
         </div>
